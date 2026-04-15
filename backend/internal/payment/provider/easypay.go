@@ -28,7 +28,6 @@ const (
 	tradeStatusSuccess     = "TRADE_SUCCESS"
 	signTypeMD5            = "MD5"
 	paymentModePopup       = "popup"
-	deviceMobile           = "mobile"
 )
 
 // EasyPay implements payment.Provider for the EasyPay aggregation platform.
@@ -83,9 +82,6 @@ func (e *EasyPay) createRedirectPayment(req payment.CreatePaymentRequest) (*paym
 	if cid := e.resolveCID(req.PaymentType); cid != "" {
 		params["cid"] = cid
 	}
-	if req.IsMobile {
-		params["device"] = deviceMobile
-	}
 	params["sign"] = easyPaySign(params, e.config["pkey"])
 	params["sign_type"] = signTypeMD5
 
@@ -109,9 +105,6 @@ func (e *EasyPay) createAPIPayment(ctx context.Context, req payment.CreatePaymen
 	}
 	if cid := e.resolveCID(req.PaymentType); cid != "" {
 		params["cid"] = cid
-	}
-	if req.IsMobile {
-		params["device"] = deviceMobile
 	}
 	params["sign"] = easyPaySign(params, e.config["pkey"])
 	params["sign_type"] = signTypeMD5
