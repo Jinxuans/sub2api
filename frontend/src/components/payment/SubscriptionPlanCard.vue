@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'group relative flex flex-col overflow-hidden rounded-[22px] border border-slate-200/90 bg-white/95 shadow-[0_10px_24px_rgba(15,23,42,0.04)] transition-all',
+      'group relative flex self-start flex-col overflow-hidden rounded-[22px] border border-slate-200/90 bg-white/95 shadow-[0_10px_24px_rgba(15,23,42,0.04)] transition-all',
       'hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(15,23,42,0.06)] dark:border-dark-700 dark:bg-dark-800',
     ]"
   >
@@ -9,18 +9,15 @@
       <div class="flex items-start justify-between gap-4">
         <div class="min-w-0 flex-1">
           <div class="flex flex-wrap items-center gap-2">
-            <h3 class="truncate text-[15px] font-semibold tracking-tight text-slate-900 dark:text-white">{{ plan.name }}</h3>
+            <h3 class="text-[15px] font-semibold leading-5 tracking-tight text-slate-900 break-words dark:text-white" :title="plan.name">{{ plan.name }}</h3>
             <span :class="['shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium', badgeLightClass]">
               {{ pLabel }}
             </span>
           </div>
-          <p v-if="plan.description" class="mt-1 text-xs leading-5 text-slate-500 line-clamp-1 dark:text-slate-400">
-            {{ plan.description }}
-          </p>
         </div>
         <div class="shrink-0 text-right">
           <div class="flex items-end justify-end gap-1">
-            <span class="pb-1 text-[11px] text-slate-400 dark:text-slate-500">$</span>
+            <span class="pb-1 text-[11px] text-slate-400 dark:text-slate-500">¥</span>
             <span class="text-[34px] leading-none font-semibold tracking-tight text-slate-900 dark:text-white">{{ plan.price }}</span>
           </div>
           <div class="mt-1 flex items-center justify-end gap-2">
@@ -28,12 +25,16 @@
             <span v-if="discountText" class="rounded bg-orange-50 px-1.5 py-0.5 text-[10px] font-semibold text-orange-600 dark:bg-orange-500/10 dark:text-orange-300">{{ discountText }}</span>
           </div>
           <div v-if="plan.original_price" class="mt-0.5 flex items-center justify-end gap-1.5">
-            <span class="text-[11px] text-slate-400 line-through dark:text-slate-500">${{ plan.original_price }}</span>
+            <span class="text-[11px] text-slate-400 line-through dark:text-slate-500">¥{{ plan.original_price }}</span>
           </div>
         </div>
       </div>
 
-      <div class="mt-3 rounded-[18px] border border-slate-200/80 bg-slate-50/75 p-3 dark:border-dark-700 dark:bg-dark-900">
+      <p v-if="plan.description" class="mt-2 text-xs leading-5 text-slate-500 break-words dark:text-slate-400">
+        {{ plan.description }}
+      </p>
+
+      <div v-if="statItems.length > 0" class="mt-3 rounded-[18px] border border-slate-200/80 bg-slate-50/75 p-3 dark:border-dark-700 dark:bg-dark-900">
         <div class="grid gap-2 sm:grid-cols-2">
           <div v-for="item in statItems" :key="item.label" class="rounded-xl bg-white/80 px-3 py-2 dark:bg-dark-800/80">
             <p class="text-[11px] leading-4 text-slate-400 dark:text-slate-500">{{ item.label }}</p>
