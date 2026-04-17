@@ -157,7 +157,7 @@
                       <div v-for="order in filteredOrders" :key="order.id" class="rounded-[20px] border border-slate-200/90 bg-white p-4 dark:border-dark-700 dark:bg-dark-900">
                         <div class="flex items-start justify-between gap-3">
                           <div class="min-w-0">
-                            <h4 class="truncate text-lg font-semibold text-slate-900 dark:text-white">{{ orderCardTitle(order) }}</h4>
+                            <h4 class="text-lg font-semibold leading-6 text-slate-900 break-words dark:text-white">{{ orderCardTitle(order) }}</h4>
                             <p class="mt-2 break-all text-sm text-slate-500 dark:text-slate-400">{{ t('payment.orders.orderNo') }}: {{ order.out_trade_no }}</p>
                           </div>
                           <OrderStatusBadge :status="order.status" />
@@ -187,7 +187,7 @@
                         <div class="flex items-start justify-between gap-3">
                           <div class="min-w-0">
                             <div class="flex flex-wrap items-center gap-2">
-                              <h4 class="truncate text-base font-semibold text-slate-900 dark:text-white">{{ sub.group?.name || `Group #${sub.group_id}` }}</h4>
+                              <h4 class="text-base font-semibold leading-6 text-slate-900 break-words dark:text-white">{{ sub.group?.name || `Group #${sub.group_id}` }}</h4>
                               <span :class="['rounded-full px-2 py-0.5 text-[10px] font-medium', platformBadgeLightClass(sub.group?.platform || '')]">{{ platformLabel(sub.group?.platform || '') }}</span>
                             </div>
                             <p class="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{{ sub.expires_at ? formatDateTime(sub.expires_at) : t('userSubscriptions.noExpiration') }}</p>
@@ -300,7 +300,7 @@ const creditedAmount = computed(() => Math.round(validAmount.value * balanceRech
 const globalMinAmount = computed(() => checkout.value.global_min)
 const selectedLimit = computed(() => checkout.value.methods[selectedMethod.value])
 const amountInputValue = computed(() => amount.value ?? '')
-const planGridClass = computed(() => checkout.value.plans.length <= 2 ? 'grid grid-cols-1 gap-5 lg:grid-cols-2' : 'grid grid-cols-1 gap-5 lg:grid-cols-2 2xl:grid-cols-3')
+const planGridClass = computed(() => checkout.value.plans.length <= 2 ? 'grid items-start grid-cols-1 gap-5 lg:grid-cols-2' : 'grid items-start grid-cols-1 gap-5 lg:grid-cols-2 2xl:grid-cols-3')
 
 const purchaseNoteItems = computed(() => {
   const source = checkout.value.help_text?.trim() || t('payment.purchaseNotesFallback')
